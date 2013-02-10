@@ -1,5 +1,6 @@
 @base-red: #FF3838;
 @dark-red: #A61212;
+@evernote: #78A538;
 @blue: #2C74A3;
 
 
@@ -42,6 +43,32 @@ h1 {
   text-align: center;
 }
 
+.btn (@color) {
+  color: white;
+  text-decoration: none;
+  padding: 6px 16px 8px 16px;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 10px;
+
+  box-shadow: 0px 2px 15px saturate(spin(@color, 10%), 10%);
+
+  background-color: lighten(saturate(@color, 20%), 5%); // Fallback
+  background-image: -webkit-linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
+  &:hover {
+    -webkit-box-shadow: 0px 2px 18px saturate(@color, 15%);
+
+    background-color: lighten(@color, 7%); // Fallback
+    background-image: -webkit-linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+  }
+}
+
 #controls {
   margin-top: 150px;
   // margin-left: 150px;
@@ -54,30 +81,12 @@ h1 {
   }
 }
 
-#print-btn {
-  color: white;
-  text-decoration: none;
-  padding: 6px 16px 8px 16px;
-  font-size: 25px;
+#btn-print {
+  .btn(@blue);
+}
 
-  border-radius: 10px;
-
-  box-shadow: 0px 2px 20px rgb(0, 78, 218);
-
-  background-color: lighten(saturate(@blue, 20%), 5%); // Fallback
-  background-image: -webkit-linear-gradient(top,
-    lighten(saturate(@blue, 10%), 5%), 
-    darken(saturate(@blue, 30%), 5%)
-  );
-  &:hover {
-    -webkit-box-shadow: 0px 2px 20px rgb(0, 99, 255);
-
-    background-color: lighten(@blue, 7%); // Fallback
-    background-image: -webkit-linear-gradient(top,
-      lighten(@blue, 10%), 
-      lighten(@blue, 0%)
-    );
-  }
+#btn-evernote {
+  .btn(@evernote);
 }
 
 #card-head {
@@ -93,7 +102,7 @@ h1 {
   }
 
   input.title {
-    width: 450px;
+    width: 440px;
   }
 
   input.id {

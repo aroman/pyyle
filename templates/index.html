@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pyyle</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}" type="text/css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Original+Surfer|Averia+Sans+Libre" type="text/css">
+    <script></script>
+  </head>
+  <body>
+    <div id="heading">
+      <h1>Pyyle</h1>
+    </div>
+    <div id="controls">
+      <a href="#" class="arrow">&lt;</a>
+      <a style="float:right" href="#" class="arrow">&gt;</a>
+    </div>
+    <div id="card">
+      <div id="card-head">
+        <input type="textbox" placeholder="Card Topic" class="title">
+        <input type="textbox" placeholder="ID" class="id">
+      </div>
+      <div id="card-body">
+        <textarea placeholder="         Description of important fact"></textarea>
+      </div>
+      <div id="card-foot">
+        <input type="textbox" placeholder="PP #" class="page">
+      </div>
+    </div>
+    <div style="margin-top: 50px" class="center"><a id="print-btn" href="#">Print</a></div>
+    <div id="footer">
+      <p>Made with <span style="color:red"><3</span> by Avi.</p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+@base-red: #FF3838;
+@dark-red: #A61212;
+@blue: #2C74A3;
+
+
+body {
+  background-image: url("black_thread.png");
+  color: white;
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
+
+:-moz-input-placeholder {
+  font-style: italic;
+}
+
+::-moz-placeholder {
+  font-style: italic;
+}
+
+:-ms-placeholder {
+  font-style: italic;
+}
+
+p, a {
+  font-family: 'Averia Sans Libre', cursive;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  text-rendering: optimizeLegibility;
+}
+
+h1 {
+  color: @base-red;
+  text-shadow: 1px 2px 5px @dark-red;
+  font-size: 3.75em;
+}
+
+.center {
+  text-align: center;
+}
+
+#controls {
+  margin-top: 150px;
+  // margin-left: 150px;
+  // margin-right: 150px;
+  font-size: 70px;
+
+  a {
+    color: rgb(189, 189, 189);
+    text-decoration: none;
+  }
+}
+
+#print-btn {
+  color: white;
+  text-decoration: none;
+  padding: 6px 16px 8px 16px;
+  font-size: 25px;
+
+  border-radius: 10px;
+
+  box-shadow: 0px 2px 20px rgb(0, 78, 218);
+
+  background-color: lighten(saturate(@blue, 20%), 5%); // Fallback
+  background-image: -webkit-linear-gradient(top,
+    lighten(saturate(@blue, 10%), 5%), 
+    darken(saturate(@blue, 30%), 5%)
+  );
+  &:hover {
+    -webkit-box-shadow: 0px 2px 20px rgb(0, 99, 255);
+
+    background-color: lighten(@blue, 7%); // Fallback
+    background-image: -webkit-linear-gradient(top,
+      lighten(@blue, 10%), 
+      lighten(@blue, 0%)
+    );
+  }
+}
+
+#card-head {
+  height: 30px;
+  padding-left: 5px;
+  padding-right: 0px;
+  border-bottom: 1px solid red;
+  background-color: white;
+  // background: green;
+
+  input {
+    height: 28px;
+  }
+
+  input.title {
+    width: 450px;
+  }
+
+  input.id {
+    margin-left: 16px;
+    width: 25px;
+  }
+}
+
+#card-foot {
+  input {
+    float: right;
+    width: 45px;
+    height: 20px;
+  }
+}
+
+#card-body {
+  margin-top: -2px;
+
+  textarea {
+    height: 205px;
+    width: 370px;
+    font-size: 1.2em;
+    line-height: 26px;
+    margin-left: 60px;
+    margin-top: 24px;
+    border: none;
+    resize: none;
+    outline: none;
+    background-color: transparent;
+    // background: grey;
+  }
+}
+
+#card {
+  background-color: white;
+  height: 288px;
+  width: 500px;
+  margin: 0px auto;
+  box-shadow: 0px 0px 15px rgb(0, 0, 0);
+  background: -webkit-linear-gradient(top, blue 1px, white 1px);
+  background: -moz-linear-gradient(top, blue 1px, white 1px);
+  background: linear-gradient(top, blue 1px, white 1px);
+  background-size: 1px 26px;
+  border-radius: 1px;
+  background-position: 0px 2px;
+  margin-top: -175px;
+
+  input {
+    outline: none;
+    border: none;
+    font-size: 1.2em;
+    background: transparent;
+    // background: grey;
+  }
+}
+
+#heading {
+  text-align: center;
+  font-family: 'Original Surfer', cursive;
+  margin-bottom: 100px;
+}
+
+#footer {
+  text-align: center;
+  font-size: 1em;
+  font-family: 'Original Surfer', cursive;
+  margin-top: 125px;
+}

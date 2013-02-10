@@ -7,31 +7,42 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Original+Surfer|Averia+Sans+Libre" type="text/css">
   </head>
   <body>
+    {% raw %}
+      <script id="card-template" type="text/x-hogan/template">
+        <div id="card-head">
+          <input type="textbox" class="card-title" placeholder="Card Topic" value="{{title}}">
+          <input type="textbox" class="card-source" placeholder="ID" value="{{source}}">
+        </div>
+        <div id="card-body">
+          <textarea class="card-body" placeholder="         Description of important fact">{{body}}</textarea>
+        </div>
+        <div id="card-foot">
+          <input type="textbox" class="card-page" placeholder="PP #" value="{{page}}">
+        </div>
+      </script>
+    {% endraw %}
     <div id="heading">
       <h1>Pyyle</h1>
     </div>
-    <a href="#" id="left" class="arrow">&lt;</a>
+    <a href="#" id="btn-prev" class="arrow">&lt;</a>
+    <h3 id="count" class="center"></h3>
     <div id="card">
-      <div id="card-head">
-        <input type="textbox" placeholder="Card Topic" class="title">
-        <input type="textbox" placeholder="ID" class="id">
-      </div>
-      <div id="card-body">
-        <textarea placeholder="         Description of important fact"></textarea>
-      </div>
-      <div id="card-foot">
-        <input type="textbox" placeholder="PP #" class="page">
-      </div>
     </div>
-    <a href="#" id="right" class="arrow">&gt;</a>
+    <a href="#" id="btn-next" class="arrow">&gt;</a>
     <div style="margin-top: 50px" class="center">
+      <a id="btn-add" href="#">Add</a>
+      <a id="btn-save" href="#">Save</a>
       <a id="btn-print" href="#">Print</a>
-      <a id="btn-evernote" href="#">Evernote</a>
+      <!-- <a id="btn-evernote" href="#">Evernote</a> -->
     </div>
     <div id="footer">
       <p>Made with <span style="color:red"><3</span> by Avi.</p>
     </div>
+    <script src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='underscore.js') }}"></script>
+    <script src="{{ url_for('static', filename='backbone.js') }}"></script>
+    <script src="{{ url_for('static', filename='backbone.localStorage.js') }}"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
 </html>

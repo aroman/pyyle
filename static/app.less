@@ -31,6 +31,7 @@ p, a {
 
 h1, h2, h3, h4, h5, h6, p {
   text-rendering: optimizeLegibility;
+  font-family: 'Averia Sans Libre', cursive;
 }
 
 h1 {
@@ -93,12 +94,12 @@ h1 {
   }
 }
 
-#left {
+#btn-prev {
   margin-top: 100px;
   margin-left: -310px;
 }
 
-#right {
+#btn-next {
   margin-top: -190px;
   margin-left: 270px;
 }
@@ -109,6 +110,14 @@ h1 {
 
 #btn-evernote {
   .btn(@evernote);
+}
+
+#btn-add {
+  .btn(green);
+}
+
+#btn-save {
+  .btn(red);
 }
 
 #card-head {
@@ -123,11 +132,11 @@ h1 {
     height: 28px;
   }
 
-  input.title {
+  input.card-title {
     width: 440px;
   }
 
-  input.id {
+  input.card-source {
     margin-left: 16px;
     width: 25px;
   }
@@ -184,7 +193,7 @@ h1 {
 #heading {
   text-align: center;
   font-family: 'Original Surfer', cursive;
-  margin-bottom: 100px;
+  margin-bottom: 75px;
 }
 
 #footer {

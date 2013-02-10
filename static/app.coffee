@@ -1,21 +1,32 @@
 class Card extends Backbone.Model
+  defaults:
+    date: new Date().valueOf()
 
 class CardCollection extends Backbone.Collection
   model: Card
   localStorage: new Backbone.LocalStorage("cards")
+
+  comparator: (model) ->
+    model.get 'date'
 
 class CardView extends Backbone.View
 
   el: $("#card")
   template: Hogan.compile($("#card-template").html())
 
+  events:
+    "keyup :input": "autoSave"
+
   use: (model) ->
     @model = model
     @render()
 
   render: ->
-    console.log "Rendering CardView!"
     @$el.html @template.render(@model.toJSON())
+
+  autoSave: _.throttle -> 
+    @save()
+  , 1500
 
   save: ->
     @model.save
@@ -24,12 +35,20 @@ class CardView extends Backbone.View
       body: @$(".card-body").val()
       page: @$(".card-page").val()
 
+  isBlank: ->
+    Boolean(
+      @$(".card-title").val() or
+      @$(".card-source").val() or
+      @$(".card-body").val() or
+      @$(".card-page").val()
+    )
+
 class AppView extends Backbone.View
   el: $("body")
 
   events:
     "click #btn-add": "addCard"
-    "click #btn-save": "saveCard"
+    "click #btn-delete": "deleteCard"
     "click #btn-prev": "previousCard"
     "click #btn-next": "nextCard"
 
@@ -37,9 +56,16 @@ class AppView extends Backbone.View
     @cards = new CardCollection
     @card_view = new CardView
 
+    # Force save
+    window.onunload = =>
+      @card_view.save()
+      true
+
     @cards.fetch()
     if @cards.length > 0
       @loadCard @cards.last()
+    else
+      @addCard()
 
   previousCard: ->
     current = @cards.indexOf(@card_view.model)
@@ -50,17 +76,23 @@ class AppView extends Backbone.View
     @loadCard @cards.at current + 1
 
   loadCard: (model) ->
-    console.log "Loading card"
     @card_view.use model
     @updateCount()
 
   addCard: ->
-    console.log "Adding card"
+    @card_view.save() if @cards.length
     @loadCard @cards.create()
 
-  saveCard: ->
-    console.log "Saving card"
-    @card_view.save()
+  deleteCard: ->
+    return unless !@card_view.isBlank() or confirm("Are you SURE?")
+    position = @cards.indexOf(@card_view.model)
+    position = 1 if position == 0
+    @card_view.model.destroy()
+    @cards.sort()
+    if @cards.length > 0
+      @loadCard @cards.at(position - 1)
+    else
+      @addCard()
 
   updateCount: ->
     current = @cards.indexOf(@card_view.model) + 1

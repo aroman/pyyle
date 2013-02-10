@@ -12,6 +12,10 @@
       return Card.__super__.constructor.apply(this, arguments);
     }
 
+    Card.prototype.defaults = {
+      date: new Date().valueOf()
+    };
+
     return Card;
 
   })(Backbone.Model);
@@ -27,6 +31,10 @@
     CardCollection.prototype.model = Card;
 
     CardCollection.prototype.localStorage = new Backbone.LocalStorage("cards");
+
+    CardCollection.prototype.comparator = function(model) {
+      return model.get('date');
+    };
 
     return CardCollection;
 
@@ -44,15 +52,22 @@
 
     CardView.prototype.template = Hogan.compile($("#card-template").html());
 
+    CardView.prototype.events = {
+      "keyup :input": "autoSave"
+    };
+
     CardView.prototype.use = function(model) {
       this.model = model;
       return this.render();
     };
 
     CardView.prototype.render = function() {
-      console.log("Rendering CardView!");
       return this.$el.html(this.template.render(this.model.toJSON()));
     };
+
+    CardView.prototype.autoSave = _.throttle(function() {
+      return this.save();
+    }, 1500);
 
     CardView.prototype.save = function() {
       return this.model.save({
@@ -61,6 +76,10 @@
         body: this.$(".card-body").val(),
         page: this.$(".card-page").val()
       });
+    };
+
+    CardView.prototype.isBlank = function() {
+      return Boolean(this.$(".card-title").val() || this.$(".card-source").val() || this.$(".card-body").val() || this.$(".card-page").val());
     };
 
     return CardView;
@@ -79,17 +98,24 @@
 
     AppView.prototype.events = {
       "click #btn-add": "addCard",
-      "click #btn-save": "saveCard",
+      "click #btn-delete": "deleteCard",
       "click #btn-prev": "previousCard",
       "click #btn-next": "nextCard"
     };
 
     AppView.prototype.initialize = function() {
+      var _this = this;
       this.cards = new CardCollection;
       this.card_view = new CardView;
+      window.onunload = function() {
+        _this.card_view.save();
+        return true;
+      };
       this.cards.fetch();
       if (this.cards.length > 0) {
         return this.loadCard(this.cards.last());
+      } else {
+        return this.addCard();
       }
     };
 
@@ -106,19 +132,33 @@
     };
 
     AppView.prototype.loadCard = function(model) {
-      console.log("Loading card");
       this.card_view.use(model);
       return this.updateCount();
     };
 
     AppView.prototype.addCard = function() {
-      console.log("Adding card");
+      if (this.cards.length) {
+        this.card_view.save();
+      }
       return this.loadCard(this.cards.create());
     };
 
-    AppView.prototype.saveCard = function() {
-      console.log("Saving card");
-      return this.card_view.save();
+    AppView.prototype.deleteCard = function() {
+      var position;
+      if (!(!this.card_view.isBlank() || confirm("Are you SURE?"))) {
+        return;
+      }
+      position = this.cards.indexOf(this.card_view.model);
+      if (position === 0) {
+        position = 1;
+      }
+      this.card_view.model.destroy();
+      this.cards.sort();
+      if (this.cards.length > 0) {
+        return this.loadCard(this.cards.at(position - 1));
+      } else {
+        return this.addCard();
+      }
     };
 
     AppView.prototype.updateCount = function() {

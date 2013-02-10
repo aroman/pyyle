@@ -71,13 +71,26 @@ h1 {
 
 .arrow {
   position: absolute;
-  // top: 50%;
   left: 50%;
   margin-top: -70px;
 
   font-size: 70px;
-  color: rgb(189, 189, 189);
+  color: #BBBBBB;
   text-decoration: none;
+
+  &:hover {
+    color: #FFFFFF;
+  }
+}
+
+.arrow-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #555555;
+
+  &:hover {
+    color: #555555;
+  }
 }
 
 #left {

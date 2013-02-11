@@ -59,14 +59,42 @@ h1 {
     lighten(saturate(@color, 10%), 5%), 
     darken(saturate(@color, 30%), 5%)
   );
+  background-image: -moz-linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
+  background-image: -ms-linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
+  background-image: linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
   &:hover {
     -webkit-box-shadow: 0px 2px 18px saturate(@color, 15%);
+    -moz-box-shadow: 0px 2px 18px saturate(@color, 15%);
+    -ms-box-shadow: 0px 2px 18px saturate(@color, 15%);
+    box-shadow: 0px 2px 18px saturate(@color, 15%);
 
     background-color: lighten(@color, 7%); // Fallback
     background-image: -webkit-linear-gradient(top,
       lighten(@color, 10%), 
       lighten(@color, 0%)
     );
+    background-image: -moz-linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+    background-image: -ms-linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+    background-image: linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+
   }
 }
 
@@ -176,6 +204,7 @@ h1 {
   box-shadow: 0px 0px 15px rgb(0, 0, 0);
   background: -webkit-linear-gradient(top, blue 1px, white 1px);
   background: -moz-linear-gradient(top, blue 1px, white 1px);
+  background: -ms-linear-gradient(top, blue 1px, white 1px);
   background: linear-gradient(top, blue 1px, white 1px);
   background-size: 1px 26px;
   border-radius: 1px;

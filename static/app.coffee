@@ -1,5 +1,9 @@
 class Card extends Backbone.Model
   defaults:
+    title: ""
+    source: ""
+    body: ""
+    page: ""
     date: new Date().valueOf()
 
 class CardCollection extends Backbone.Collection
@@ -47,10 +51,11 @@ class AppView extends Backbone.View
   el: $("body")
 
   events:
-    "click #btn-add": "addCard"
-    "click #btn-delete": "deleteCard"
     "click #btn-prev": "previousCard"
     "click #btn-next": "nextCard"
+    "click #btn-print": "print"
+    "click #btn-add": "addCard"
+    "click #btn-delete": "deleteCard"
 
   initialize: ->
     @cards = new CardCollection
@@ -106,5 +111,46 @@ class AppView extends Backbone.View
       $("#btn-prev").addClass("arrow-disabled")
     else
       $("#btn-prev").removeClass("arrow-disabled")
+
+
+  print: ->
+    @card_view.save()
+
+    doc = new jsPDF()
+
+    cards_to_do = @cards.toArray()
+
+    # Remove blank cards
+    for card in cards_to_do
+      if (!card.get('title') || !card.get('body'))
+        cards_to_do = _.without(cards_to_do, card)
+
+    for p in [0..(cards_to_do.length / 8)] # Page
+      X_POS = 10
+      Y_POS = 10
+      R_WIDTH = 90
+      R_HEIGHT = 60
+      BUF_SIZE = 10
+      for i in [0..3] # Row
+        for j in [0..1] # Column
+          card = cards_to_do.pop()
+          if not card
+            return doc.save('notes.pdf')
+          doc.setFontSize(15)
+          doc.rect(X_POS, Y_POS, R_WIDTH, R_HEIGHT)
+          doc.setFontStyle("bold")
+          doc.text(card.get('title'), X_POS + 2, Y_POS + 6)
+          doc.setFontStyle("normal")
+          doc.text(card.get('source'), X_POS + R_WIDTH - 6, Y_POS + 6)
+          doc.setFontSize(12)
+          BODY_LINES = doc.splitTextToSize(card.get('body'), 190)
+          doc.text(BODY_LINES, X_POS + 2, Y_POS + 15)
+          doc.lines([[2,0],[R_WIDTH - 2,0]], X_POS, Y_POS + 8)
+          doc.text(card.get('page'), X_POS + R_WIDTH - 9, Y_POS + R_HEIGHT - 2)
+          X_POS = (R_WIDTH + 20)
+
+        X_POS = 10
+        Y_POS += (R_HEIGHT + BUF_SIZE)
+      doc.addPage() 
 
 window.app = new AppView

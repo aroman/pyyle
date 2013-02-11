@@ -120,10 +120,12 @@ class AppView extends Backbone.View
 
     cards_to_do = @cards.toArray()
 
-    # Remove blank cards
-    for card in cards_to_do
-      if (!card.get('title') || !card.get('body'))
-        cards_to_do = _.without(cards_to_do, card)
+    # # Remove blank cards
+    # for card, i in cards_to_do
+    #   console.log card
+    #   if (_.isUndefined(card) || !card.get('title') || !card.get('body'))
+    #     cards_to_do.splice(i, 1)
+    #     console.log cards_to_do
 
     for p in [0..(cards_to_do.length / 8)] # Page
       X_POS = 10

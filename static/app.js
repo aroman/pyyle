@@ -184,24 +184,18 @@
     };
 
     AppView.prototype.print = function() {
-      var BODY_LINES, BUF_SIZE, R_HEIGHT, R_WIDTH, X_POS, Y_POS, card, cards_to_do, doc, i, j, p, _i, _j, _k, _l, _len, _ref;
+      var BODY_LINES, BUF_SIZE, R_HEIGHT, R_WIDTH, X_POS, Y_POS, card, cards_to_do, doc, i, j, p, _i, _j, _k, _ref;
       this.card_view.save();
       doc = new jsPDF();
       cards_to_do = this.cards.toArray();
-      for (_i = 0, _len = cards_to_do.length; _i < _len; _i++) {
-        card = cards_to_do[_i];
-        if (!card.get('title') || !card.get('body')) {
-          cards_to_do = _.without(cards_to_do, card);
-        }
-      }
-      for (p = _j = 0, _ref = cards_to_do.length / 8; 0 <= _ref ? _j <= _ref : _j >= _ref; p = 0 <= _ref ? ++_j : --_j) {
+      for (p = _i = 0, _ref = cards_to_do.length / 8; 0 <= _ref ? _i <= _ref : _i >= _ref; p = 0 <= _ref ? ++_i : --_i) {
         X_POS = 10;
         Y_POS = 10;
         R_WIDTH = 90;
         R_HEIGHT = 60;
         BUF_SIZE = 10;
-        for (i = _k = 0; _k <= 3; i = ++_k) {
-          for (j = _l = 0; _l <= 1; j = ++_l) {
+        for (i = _j = 0; _j <= 3; i = ++_j) {
+          for (j = _k = 0; _k <= 1; j = ++_k) {
             card = cards_to_do.pop();
             if (!card) {
               return doc.save('notes.pdf');

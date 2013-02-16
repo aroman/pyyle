@@ -1,0 +1,58 @@
+@base: #FF6838;
+@base-accent: #964C08;
+@evernote: #78A538;
+@blue: #2C74A3;
+
+.btn (@color) {
+  color: white;
+  text-decoration: none;
+  padding: 6px 16px 8px 16px;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 10px;
+
+  box-shadow: 0px 2px 15px saturate(spin(@color, 10%), 10%);
+
+  background-color: lighten(saturate(@color, 20%), 5%); // Fallback
+  background-image: -webkit-linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
+  background-image: -moz-linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
+  background-image: -ms-linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
+  background-image: linear-gradient(top,
+    lighten(saturate(@color, 10%), 5%), 
+    darken(saturate(@color, 30%), 5%)
+  );
+  &:hover {
+    -webkit-box-shadow: 0px 2px 18px saturate(@color, 15%);
+    -moz-box-shadow: 0px 2px 18px saturate(@color, 15%);
+    -ms-box-shadow: 0px 2px 18px saturate(@color, 15%);
+    box-shadow: 0px 2px 18px saturate(@color, 15%);
+
+    background-color: lighten(@color, 7%); // Fallback
+    background-image: -webkit-linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+    background-image: -moz-linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+    background-image: -ms-linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+    background-image: linear-gradient(top,
+      lighten(@color, 10%), 
+      lighten(@color, 0%)
+    );
+
+  }
+}
